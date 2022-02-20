@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PARKulting</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">User</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Настройки</string>
+
+    <string name="menu_home">Парки</string>
+    <string name="menu_gallery">Галерея</string>
+    <string name="menu_slideshow">Прогресс</string>
+    <string name="title_activity_maps">Карты</string>
+</resources>
