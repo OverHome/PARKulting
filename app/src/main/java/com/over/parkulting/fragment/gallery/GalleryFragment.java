@@ -1,28 +1,25 @@
-package com.over.parkulting.ui;
+package com.over.parkulting.fragment.gallery;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.over.parkulting.R;
-import com.over.parkulting.databinding.FragmentGalleryBinding;
+import com.over.parkulting.activity.ImageInfoActivity;
+import com.over.parkulting.databinding.FragmentDashboardBinding;
+import com.over.parkulting.ui.ImageFragment;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,17 +28,17 @@ import java.util.List;
 
 public class GalleryFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentDashboardBinding binding;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        GalleryViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(GalleryViewModel.class);
+
+        binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        getPhotos();
 
-        return root;
-    }
-
-    private void getPhotos(){
+        //region getPhotos
         List<ImageView> photoViewsList = new ArrayList<>();
         File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         File dir = new File(dcim+"/"+"Park");
@@ -68,7 +65,7 @@ public class GalleryFragment extends Fragment {
         ImageView[] photoViews = new ImageView[photoViewsList.size()];
         photoViewsList.toArray(photoViews);
         View.OnClickListener onClickListenerPhoto = view1 -> {
-            Intent intent = new Intent(getContext(), ImageFragment.class);
+            Intent intent = new Intent(getContext(), ImageInfoActivity.class);
             intent.putExtra("title", files[view1.getId()].getName().split("_")[0]);
             intent.putExtra("file", files[view1.getId()].getAbsolutePath());
             startActivity(intent);
@@ -79,7 +76,11 @@ public class GalleryFragment extends Fragment {
             photoViews[files.length-i-1].setOnClickListener(onClickListenerPhoto);
             photoViews[files.length-i-1].setId(i);
         }
+        //endregion
+
+        return root;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

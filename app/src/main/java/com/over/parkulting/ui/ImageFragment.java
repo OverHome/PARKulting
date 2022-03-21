@@ -28,6 +28,7 @@ public class ImageFragment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
+
         imageView = findViewById(R.id.image);
         title = findViewById(R.id.title);
         info = findViewById(R.id.info);

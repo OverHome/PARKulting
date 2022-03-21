@@ -1,4 +1,4 @@
-package com.over.parkulting.ui;
+package com.over.parkulting.fragment.home;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,9 +14,12 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.over.parkulting.DBHelper;
+import com.over.parkulting.adapter.ParkAdapter;
 import com.over.parkulting.databinding.FragmentHomeBinding;
+import com.over.parkulting.object.Park;
 import com.over.parkulting.ui.RoutPoints;
 
 import java.io.IOException;
@@ -26,19 +29,25 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private String[] routeArray;
-    private ArrayAdapter<String> adapterRoute;
+    private ArrayList<Park> parkArrayList;
+    private ParkAdapter adapter;
+    private DBHelper dbHelper;
+    private SQLiteDatabase db;
 
-    DBHelper dbHelper;
-    SQLiteDatabase db;
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        HomeViewModel homeViewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
         final ListView routeList = binding.routeList;
         setRoute();
-        routeList.setAdapter(adapterRoute);
+
+
+
+        routeList.setAdapter(adapter);
         routeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getContext(), RoutPoints.class);
@@ -50,32 +59,19 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
-    public void connectDB(){
-        dbHelper = new DBHelper(getContext());
-        try {
-            dbHelper.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
-        }
-
-        try {
-            db = dbHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-    }
 
     public void setRoute(){
-        List<String> parks = new ArrayList<>();
-        connectDB();
+        parkArrayList = new ArrayList<Park>();
+        db = DBHelper.connectDB(getContext());
         Cursor cursor = db.rawQuery("SELECT * FROM parks", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            parks.add(cursor.getString(1));
+            parkArrayList.add(new Park(cursor.getString(1)));//cursor.getString(1));
             cursor.moveToNext();
         }
         cursor.close();
-        adapterRoute = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, parks);
+
+        adapter = new ParkAdapter(getContext(), parkArrayList);
     }
 
     @Override

@@ -26,7 +26,6 @@ import java.util.List;
 public class SlideshowFragment extends Fragment {
 
     private FragmentSlideshowBinding binding;
-    DBHelper dbHelper;
     SQLiteDatabase db;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -35,7 +34,7 @@ public class SlideshowFragment extends Fragment {
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         final ListView list = binding.list;
-        connectDB();
+        db = DBHelper.connectDB(getContext());
         List<String> tpoints = new ArrayList<>();
         Cursor userCursor = db.rawQuery("SELECT * FROM user_points where is_take = 1" , null);
         Cursor pointCursor;
@@ -52,21 +51,6 @@ public class SlideshowFragment extends Fragment {
 
 
         return root;
-    }
-
-    public void connectDB() {
-        dbHelper = new DBHelper(getContext());
-        try {
-            dbHelper.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
-        }
-
-        try {
-            db = dbHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
     }
 
     @Override

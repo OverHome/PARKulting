@@ -44,19 +44,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(captureIntent, CAMERA_REQUEST);
-                } catch (ActivityNotFoundException e) {
-                    String errorMessage = "Ваше устройство не поддерживает съемку";
-                    Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         mAppBarConfiguration = new AppBarConfiguration.Builder(
