@@ -3,12 +3,17 @@ package com.over.parkulting.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -23,7 +28,11 @@ import android.widget.Toast;
 
 import com.over.parkulting.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -137,7 +146,41 @@ public class CameraFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+    public static Bitmap RotateBitmap(Bitmap source, float angle)
+    {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
+    }
+    private String SavePicture(Bitmap img, String folderToSave, String name) throws IOException {
+        File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File dir = new File(pictures+"/"+folderToSave);
+        dir.mkdir();
+        name = name+"_"+System.currentTimeMillis()+".jpg";
+        File file = new File(dir,name);
+        FileOutputStream fos = new FileOutputStream(file);
+        img.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+        fos.flush();
+        fos.close();
+        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), file.getAbsolutePath(), file.getName(),  file.getName());
+        return pictures+"/"+folderToSave+"/"+name;
+    }
+    private Camera.PictureCallback mPictureCallback = new Camera.PictureCallback() {
 
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+            bitmap = RotateBitmap(bitmap, 90);
+            try {
+                SavePicture(bitmap,"Park", "img");
+                Toast.makeText(mContext, "Save file: ", Toast.LENGTH_LONG).show();
+            }
+            catch (Exception e) {
+                Toast.makeText(mContext, "Error: can't save file", Toast.LENGTH_LONG).show();
+            }
+            mCamera.startPreview(); //3
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -149,11 +192,19 @@ public class CameraFragment extends Fragment {
             Toast.makeText(mContext, "Opening camera failed", Toast.LENGTH_LONG).show();
             return root;
         }
+        capture = (ImageButton) root.findViewById(R.id.capture);
         preview = new CameraPreview (mContext, mCamera);
         mFrame = (FrameLayout) root.findViewById(R.id.layoutframe); //4
         mFrame.addView(preview, 0);
 
-
+        capture.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCamera.takePicture(null, null, null, mPictureCallback);
+                    }
+                }
+        );
 
         return root;
     }
