@@ -19,6 +19,7 @@ public class MasterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Theme_Parkulting);
         super.onCreate(savedInstanceState);
 
         binding = ActivityMasterBinding.inflate(getLayoutInflater());
