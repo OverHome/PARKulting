@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
+        android:id="@+id/navigation_camera"
+        android:name="com.over.parkulting.fragment.CameraFragment"
+        android:label="@string/title_camera"
+        tools:layout="@layout/fragment_camera" />
+
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.over.parkulting.fragment.notifications.NotificationsFragment"
         android:label="@string/title_notifications"

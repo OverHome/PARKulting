@@ -52,9 +52,8 @@ public class RoutPoints extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageView = findViewById(R.id.imageView);
         setContentView(R.layout.route_points);
-        receiveIntent();
+        /*receiveIntent();
         LinearLayout scrollPoints = findViewById(R.id.scrollPoints);
         views = new View[points.length];
         for (int i = 0; i < points.length; i++) {
@@ -96,7 +95,7 @@ public class RoutPoints extends AppCompatActivity {
             }
             views[i] = view;
             scrollPoints.addView(views[i]);
-        }
+        }*/
     }
 
     @Override

@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.over.parkulting.DBHelper;
+import com.over.parkulting.activity.PointActivity;
 import com.over.parkulting.adapter.ParkAdapter;
 import com.over.parkulting.databinding.FragmentHomeBinding;
 import com.over.parkulting.object.Park;
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
         routeList.setAdapter(adapter);
         routeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getContext(), RoutPoints.class);
+                Intent intent = new Intent(getContext(), PointActivity.class);
                 intent.putExtra("position", position);
                 startActivity(intent);
 
