@@ -38,8 +38,10 @@ public class PointActivity extends AppCompatActivity {
 
         ListView pointlist = findViewById(R.id.point_list);
         List<GeoPoint> pointsl = new ArrayList<>();
+
         pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99));
         pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99));
+
         PointAdapter adapter = new PointAdapter(this, pointsl);
         pointlist.setAdapter(adapter);
     }
