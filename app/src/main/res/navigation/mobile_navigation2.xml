@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_gallery"
-        android:name="com.over.parkulting.fragment.gallery.GalleryFragment"
+        android:name="com.over.parkulting.fragment.GalleryFragment"
         android:label="@string/title_gallery"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/navigation_camera"
