@@ -52,7 +52,7 @@ public class RoutPoints extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.route_points);
+        //setContentView(R.layout.route_points);
         /*receiveIntent();
         LinearLayout scrollPoints = findViewById(R.id.scrollPoints);
         views = new View[points.length];

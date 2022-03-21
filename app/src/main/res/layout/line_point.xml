@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:minHeight="48dp"
-            app:srcCompat="@drawable/ic_menu_camera"
+            app:srcCompat="@android:drawable/ic_menu_camera"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
