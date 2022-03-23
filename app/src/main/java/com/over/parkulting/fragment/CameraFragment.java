@@ -24,13 +24,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.over.parkulting.Iris;
 import com.over.parkulting.R;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class CameraFragment extends Fragment {
 
@@ -158,7 +157,10 @@ public class CameraFragment extends Fragment {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            bitmap = RotateBitmap(bitmap, 90);
+            if (bitmap.getHeight()<bitmap.getWidth()){
+                bitmap = RotateBitmap(bitmap, 90);
+            }
+            Iris.classifyImage(bitmap, getContext());
             try {
                 SavePicture(bitmap,"Park", "img");
                 Toast.makeText(mContext, "Save file: ", Toast.LENGTH_LONG).show();

@@ -1,6 +1,5 @@
 package com.over.parkulting.ui;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -10,24 +9,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.over.parkulting.DBHelper;
-import com.over.parkulting.ImportIris;
-import com.over.parkulting.MapsActivity;
-import com.over.parkulting.R;
-import com.over.parkulting.DBHelper;
-import com.over.parkulting.MapsActivity;
+import com.over.parkulting.Iris;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -105,7 +95,7 @@ public class RoutPoints extends AppCompatActivity {
             if (requestCode == CAMERA_REQUEST) {
                 Bundle extras = data.getExtras();
                 Bitmap image = extras.getParcelable("data");
-                String attractions = ImportIris.classifyImage(image, getApplicationContext());
+                String attractions = Iris.classifyImage(image, getApplicationContext());
                 try {
                     SavePicture(image, "Park", attractions);
                 } catch (IOException e) {

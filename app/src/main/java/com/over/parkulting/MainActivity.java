@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == CAMERA_REQUEST) {
                 Bundle extras = data.getExtras();
                 Bitmap image = extras.getParcelable("data");
-                String attractions = ImportIris.classifyImage(image, getApplicationContext());
+                String attractions = Iris.classifyImage(image, getApplicationContext());
                 String folder ="";
                 try {
                     folder = SavePicture(image, "Park", attractions);
