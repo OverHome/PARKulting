@@ -31,7 +31,20 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CameraFragment extends Fragment {
+//import com.github.florent37.camerafragment.CameraFragment;
+import com.github.florent37.camerafragment.CameraFragmentApi;
+import com.github.florent37.camerafragment.configuration.Configuration;
+import com.github.florent37.camerafragment.listeners.CameraFragmentControlsAdapter;
+import com.github.florent37.camerafragment.listeners.CameraFragmentResultAdapter;
+import com.github.florent37.camerafragment.listeners.CameraFragmentStateAdapter;
+import com.github.florent37.camerafragment.listeners.CameraFragmentVideoRecordTextAdapter;
+import com.github.florent37.camerafragment.widgets.CameraSettingsView;
+import com.github.florent37.camerafragment.widgets.CameraSwitchView;
+import com.github.florent37.camerafragment.widgets.FlashSwitchView;
+import com.github.florent37.camerafragment.widgets.MediaActionSwitchView;
+import com.github.florent37.camerafragment.widgets.RecordButton;
+
+public class RecognizeFragment extends Fragment {
 
     public class CameraPreview extends SurfaceView implements Callback {
 

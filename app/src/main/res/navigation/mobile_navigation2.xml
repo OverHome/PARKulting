@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_camera"
-        android:name="com.over.parkulting.fragment.CameraFragment"
+        android:name="com.over.parkulting.fragment.RecognizeFragment"
         android:label="@string/title_camera"
         tools:layout="@layout/fragment_camera" />
 

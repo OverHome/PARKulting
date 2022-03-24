@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="58dp"
-    tools:context=".fragment.CameraFragment">
+    tools:context=".fragment.RecognizeFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/capture"
