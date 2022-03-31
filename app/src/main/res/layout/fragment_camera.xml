@@ -5,8 +5,7 @@
     android:id="@+id/layoutframe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="58dp"
-    tools:context=".fragment.RecognizeFragment">
+    android:paddingBottom="58dp">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/capture"

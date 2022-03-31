@@ -1,5 +1,6 @@
 package com.over.parkulting.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.over.parkulting.Iris;
@@ -30,19 +32,6 @@ import com.over.parkulting.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-//import com.github.florent37.camerafragment.CameraFragment;
-import com.github.florent37.camerafragment.CameraFragmentApi;
-import com.github.florent37.camerafragment.configuration.Configuration;
-import com.github.florent37.camerafragment.listeners.CameraFragmentControlsAdapter;
-import com.github.florent37.camerafragment.listeners.CameraFragmentResultAdapter;
-import com.github.florent37.camerafragment.listeners.CameraFragmentStateAdapter;
-import com.github.florent37.camerafragment.listeners.CameraFragmentVideoRecordTextAdapter;
-import com.github.florent37.camerafragment.widgets.CameraSettingsView;
-import com.github.florent37.camerafragment.widgets.CameraSwitchView;
-import com.github.florent37.camerafragment.widgets.FlashSwitchView;
-import com.github.florent37.camerafragment.widgets.MediaActionSwitchView;
-import com.github.florent37.camerafragment.widgets.RecordButton;
 
 public class RecognizeFragment extends Fragment {
 
