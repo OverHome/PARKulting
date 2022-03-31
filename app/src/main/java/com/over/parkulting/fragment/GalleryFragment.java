@@ -33,8 +33,7 @@ public class GalleryFragment extends Fragment {
         File dir = new File(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+
                         "/"+"Park");
-        File directory = new File(dir.toString());
-        List<File> files = Arrays.asList(directory.listFiles());
+        List<File> files = Arrays.asList(dir.listFiles());
         Collections.sort(files, (f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
         Collections.reverse(files);
         for (File filePhoto : files) adapter.addItem(new Picture(filePhoto));

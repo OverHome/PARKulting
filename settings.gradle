@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Parkulting"
 include ':app'
-include ':camerafragment'

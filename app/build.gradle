@@ -63,7 +63,7 @@ dependencies {
     implementation 'com.github.paolorotolo:appintro:3.3.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:support-compat:28.0.0'
-
-    implementation project(':camerafragment')
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
 }

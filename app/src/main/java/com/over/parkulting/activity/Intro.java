@@ -2,8 +2,6 @@ package com.over.parkulting.activity;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
 import com.github.paolorotolo.appintro.AppIntro2;
 import com.over.parkulting.R;
 import com.over.parkulting.fragment.SlideFragment;

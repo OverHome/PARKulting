@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.over.parkulting.R;
 import com.over.parkulting.activity.ImageInfoActivity;
 import com.over.parkulting.object.Picture;
@@ -32,7 +33,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         }
 
         public void bind(Picture item) {
-            pictureImageView.setImageDrawable(Drawable.createFromPath(item.getPath()));
+            //pictureImageView.setImageDrawable(Drawable.createFromPath(item.getPath()));
+            Glide.with(mContext).load("file://"+item.getPath()).into(pictureImageView);
             pictureImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
