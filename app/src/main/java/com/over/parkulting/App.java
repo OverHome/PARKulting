@@ -1,16 +1,34 @@
 package com.over.parkulting;
 
 import android.app.Application;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
+
+import com.over.parkulting.activity.Intro;
 
 import java.util.concurrent.TimeUnit;
 
 public class App extends Application {
+
+    private final String SHPH_FS = "FIRST_START";
     @Override
     public void onCreate() {
         super.onCreate();
 
-        // TODO: заменить на payload
-        SystemClock.sleep(TimeUnit.SECONDS.toMillis(3));
+        SharedPreferences getPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getBaseContext());
+
+        boolean isFirstStart = getPrefs.getBoolean(SHPH_FS, true);
+
+        if (isFirstStart) {
+            Intent i = new Intent(this, Intro.class);
+            startActivity(i);
+
+            SharedPreferences.Editor e = getPrefs.edit();
+            e.putBoolean(SHPH_FS, false);
+            e.apply();
+        }
     }
 }

@@ -1,7 +1,6 @@
 package com.over.parkulting.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,7 +11,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.over.parkulting.DBHelper;
+import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
 
 import java.io.IOException;

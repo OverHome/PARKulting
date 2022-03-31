@@ -1,16 +1,11 @@
 package com.over.parkulting;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.service.controls.templates.ThumbnailTemplate;
 import android.view.Menu;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +16,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.over.parkulting.databinding.ActivityMainBinding;
+import com.over.parkulting.tools.Iris;
 import com.over.parkulting.ui.ImageFragment;
-import com.over.parkulting.ui.RoutPoints;
 
 import java.io.File;
 

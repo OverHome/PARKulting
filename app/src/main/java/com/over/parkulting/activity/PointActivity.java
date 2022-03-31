@@ -1,16 +1,13 @@
 package com.over.parkulting.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
-import com.over.parkulting.DBHelper;
+import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
 import com.over.parkulting.adapter.PointAdapter;
 import com.over.parkulting.object.GeoPoint;

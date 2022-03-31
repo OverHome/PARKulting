@@ -1,7 +1,6 @@
 package com.over.parkulting.ui;
 
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,17 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.over.parkulting.DBHelper;
+import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.databinding.FragmentSlideshowBinding;
 
-import java.io.IOException;
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 

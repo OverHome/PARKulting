@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.over.parkulting.databinding.FragmentNotificationsBinding;
 
-public class NotificationsFragment extends Fragment {
+public class AchievementsFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 

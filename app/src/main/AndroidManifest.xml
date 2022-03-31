@@ -22,6 +22,10 @@
         android:name=".App">
 
         <activity
+            android:name=".activity.Intro"
+            android:theme="@style/FullscreenTheme"/>
+
+        <activity
             android:name=".activity.PointActivity"
             android:theme="@style/Theme.Parkulting"
             android:exported="false" />

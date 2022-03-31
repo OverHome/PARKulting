@@ -4,22 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.over.parkulting.DBHelper;
+import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
-
-import java.io.File;
-import java.io.IOException;
 
 public class ImageInfoActivity extends AppCompatActivity {
 

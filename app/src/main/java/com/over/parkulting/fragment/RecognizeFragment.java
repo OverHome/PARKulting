@@ -1,6 +1,5 @@
 package com.over.parkulting.fragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -23,10 +22,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.over.parkulting.Iris;
+import com.over.parkulting.tools.Iris;
 import com.over.parkulting.R;
 
 import java.io.File;
