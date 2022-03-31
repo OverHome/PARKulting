@@ -31,8 +31,8 @@ public class GalleryFragment extends Fragment {
 
         //region getPhotos
         File dir = new File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+
-                        "/"+"Park");
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) +
+                        "/Park");
         List<File> files = Arrays.asList(dir.listFiles());
         Collections.sort(files, (f1, f2) -> Long.compare(f1.lastModified(), f2.lastModified()));
         Collections.reverse(files);
