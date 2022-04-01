@@ -1,5 +1,6 @@
 package com.over.parkulting.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,12 +27,14 @@ import android.widget.Toast;
 
 import com.over.parkulting.tools.Iris;
 import com.over.parkulting.R;
+import com.over.parkulting.tools.permission.PermissionCallback;
+import com.over.parkulting.tools.permission.PermissionTool;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class RecognizeFragment extends Fragment {
+public class RecognizeFragment extends Fragment implements PermissionCallback {
 
     public class CameraPreview extends SurfaceView implements Callback {
 
@@ -176,15 +179,25 @@ public class RecognizeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_camera, container, false);
         mContext = getContext();
+        capture = root.findViewById(R.id.capture);
+        mFrame = root.findViewById(R.id.layoutframe);
+
+        new PermissionTool(getContext(), this, new String[] {
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA });
+
+
+        return root;
+    }
+
+    @Override
+    public void onPermissionGranted() {
 
         mCamera = openCamera (); //1
         if (mCamera == null) { //2
             Toast.makeText(mContext, "Opening camera failed", Toast.LENGTH_LONG).show();
-            return root;
         }
-        capture = (ImageButton) root.findViewById(R.id.capture);
         preview = new CameraPreview (mContext, mCamera);
-        mFrame = (FrameLayout) root.findViewById(R.id.layoutframe); //4
         mFrame.addView(preview, 0);
 
         capture.setOnClickListener(
@@ -195,8 +208,11 @@ public class RecognizeFragment extends Fragment {
                     }
                 }
         );
+    }
 
-        return root;
+    @Override
+    public void onPermissionDenied() {
+
     }
 
     private Camera openCamera() {

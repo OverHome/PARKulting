@@ -6,11 +6,6 @@ public class Picture {
     private String type;
     private String path;
 
-    public Picture(String type, String path) {
-        this.type = type;
-        this.path = path;
-    }
-
     public Picture(File file) {
         this.type = file.getName().split("_")[0];
         this.path = file.getAbsolutePath();
