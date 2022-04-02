@@ -18,6 +18,7 @@ import com.over.parkulting.tools.permission.PermissionTool;
 public class MasterActivity extends AppCompatActivity {
 
     private ActivityMasterBinding binding;
+    public PermissionTool pt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +37,13 @@ public class MasterActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_master);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (pt != null) {
+            pt.callBackPermissionResult(requestCode, permissions, grantResults);
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

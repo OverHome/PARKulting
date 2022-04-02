@@ -9,6 +9,7 @@ import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -21,10 +22,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.over.parkulting.activity.MasterActivity;
 import com.over.parkulting.tools.Iris;
 import com.over.parkulting.R;
 import com.over.parkulting.tools.permission.PermissionCallback;
@@ -129,19 +132,20 @@ public class RecognizeFragment extends Fragment implements PermissionCallback {
     Camera mCamera;
     FrameLayout mFrame;
     Context mContext;
+    ConstraintLayout permgallerdenine;
+    private PermissionTool permissionTool;
+    private final String[] permissionlist = new String[] {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA };
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
     public static Bitmap RotateBitmap(Bitmap source, float angle)
     {
         Matrix matrix = new Matrix();
         matrix.postRotate(angle);
         return Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(), matrix, true);
     }
+
     private String SavePicture(Bitmap img, String folderToSave, String name) throws IOException {
         File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         File dir = new File(pictures+"/"+folderToSave);
@@ -174,6 +178,7 @@ public class RecognizeFragment extends Fragment implements PermissionCallback {
             mCamera.startPreview(); //3
         }
     };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -181,17 +186,24 @@ public class RecognizeFragment extends Fragment implements PermissionCallback {
         mContext = getContext();
         capture = root.findViewById(R.id.capture);
         mFrame = root.findViewById(R.id.layoutframe);
+        permgallerdenine = root.findViewById(R.id.permcameradenine);
+        Button btnRegCamera = root.findViewById(R.id.btn_reg_camera);
+        permissionTool = new PermissionTool(getContext(), this, permissionlist);
+        btnRegCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                permissionTool.check();
+            }
+        });
 
-        new PermissionTool(getContext(), this, new String[] {
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA });
-
-
+        permissionTool.check();
         return root;
     }
 
     @Override
     public void onPermissionGranted() {
+        permgallerdenine.setVisibility(View.INVISIBLE);
+        capture.setVisibility(View.VISIBLE);
 
         mCamera = openCamera (); //1
         if (mCamera == null) { //2
@@ -212,7 +224,14 @@ public class RecognizeFragment extends Fragment implements PermissionCallback {
 
     @Override
     public void onPermissionDenied() {
+        ((MasterActivity) getActivity()).pt = permissionTool;
+        permissionTool.reqPerm(getActivity(), permissionlist);
+    }
 
+    @Override
+    public void onPermissionDeniedByTheUser() {
+        capture.setVisibility(View.INVISIBLE);
+        permgallerdenine.setVisibility(View.VISIBLE);
     }
 
     private Camera openCamera() {
