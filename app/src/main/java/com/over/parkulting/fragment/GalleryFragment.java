@@ -18,15 +18,15 @@ import com.over.parkulting.R;
 import com.over.parkulting.activity.MasterActivity;
 import com.over.parkulting.adapter.GalleryAdapter;
 import com.over.parkulting.object.Picture;
-import com.over.parkulting.tools.permission.PermissionCallback;
-import com.over.parkulting.tools.permission.PermissionTool;
+
+import com.over.parkulting.tools.PermissionTool;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class GalleryFragment extends Fragment implements PermissionCallback {
+public class GalleryFragment extends Fragment implements PermissionTool.PermissionCallback {
     RecyclerView rv_gallery;
     ConstraintLayout permgallerdenine;
     private GalleryAdapter adapter;

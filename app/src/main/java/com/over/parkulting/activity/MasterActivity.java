@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.over.parkulting.R;
 import com.over.parkulting.databinding.ActivityMasterBinding;
-import com.over.parkulting.tools.permission.PermissionTool;
+import com.over.parkulting.tools.PermissionTool;
 
 public class MasterActivity extends AppCompatActivity {
 
@@ -42,7 +42,7 @@ public class MasterActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (pt != null) {
-            pt.callBackPermissionResult(requestCode, permissions, grantResults);
+            pt.callBackPermissionResult(grantResults);
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }

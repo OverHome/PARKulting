@@ -30,14 +30,13 @@ import android.widget.Toast;
 import com.over.parkulting.activity.MasterActivity;
 import com.over.parkulting.tools.Iris;
 import com.over.parkulting.R;
-import com.over.parkulting.tools.permission.PermissionCallback;
-import com.over.parkulting.tools.permission.PermissionTool;
+import com.over.parkulting.tools.PermissionTool;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class RecognizeFragment extends Fragment implements PermissionCallback {
+public class RecognizeFragment extends Fragment implements PermissionTool.PermissionCallback {
 
     public class CameraPreview extends SurfaceView implements Callback {
 

@@ -1,17 +1,20 @@
-package com.over.parkulting.tools.permission;
+package com.over.parkulting.tools;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.over.parkulting.App;
-
 public class PermissionTool {
+    public static interface PermissionCallback {
+        void onPermissionGranted();
+        void onPermissionDenied();
+        void onPermissionDeniedByTheUser();
+    }
+
 
     private Context mContext;
     private int LOCATION_PERMISSION_REQUEST_CODE = 1;
@@ -43,7 +46,7 @@ public class PermissionTool {
         ActivityCompat.requestPermissions(activity, permissions, LOCATION_PERMISSION_REQUEST_CODE);
     }
 
-    public void callBackPermissionResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
+    public void callBackPermissionResult(@NonNull int[] grantResults){
 
         boolean test = true;
 
