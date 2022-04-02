@@ -111,5 +111,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="permissiondeninetext">Не выданы необходимые права</string>
     <string name="req">Запросить</string>
+    <string name="welcom">Добро пожаловать</string>
+    <string name="intro1_text">Я фотоаппарат - помощник туриста. Со мной ты всегда будешь знать куда сходить и что за достопремечательность перед тобой.</string>
+    <string name="intro1_img">логотип фотоаппората</string>
 
 </resources>
