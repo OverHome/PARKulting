@@ -175,6 +175,7 @@ public class RecognizeFragment extends Fragment implements PermissionTool.Permis
                 String imgName = Iris.classifyImage(bitmap, getContext());
                 SavePicture(bitmap,"Park", imgName);
                 Toast.makeText(mContext, "Save file: ", Toast.LENGTH_LONG).show();
+
             }
             catch (Exception e) {
                 Toast.makeText(mContext, "Error: can't save file", Toast.LENGTH_LONG).show();

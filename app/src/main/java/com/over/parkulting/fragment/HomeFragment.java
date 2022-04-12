@@ -59,7 +59,9 @@ public class HomeFragment extends Fragment {
         Cursor cursor = db.rawQuery("SELECT * FROM parks", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            parkArrayList.add(new Park(cursor.getString(1)));//cursor.getString(1));
+            parkArrayList.add(new Park(
+                    cursor.getString(1),
+                    cursor.getString(2)));
             cursor.moveToNext();
         }
         cursor.close();
