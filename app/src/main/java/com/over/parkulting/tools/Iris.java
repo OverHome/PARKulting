@@ -23,7 +23,7 @@ public class Iris {
         img = ThumbnailUtils.extractThumbnail(img, des , des);
         img = Bitmap.createScaledBitmap(img, imageSize, imageSize, false);
         try {
-            ByteBuffer modelf = loadModelFile(context.getAssets(), "model1.tflite");
+            ByteBuffer modelf = loadModelFile(context.getAssets(), "model.tflite");
             Interpreter interpreter = new Interpreter(modelf);
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
             byteBuffer.order(ByteOrder.nativeOrder());

@@ -3,12 +3,15 @@ package com.over.parkulting.fragment;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
@@ -28,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.over.parkulting.activity.MasterActivity;
+import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.tools.Iris;
 import com.over.parkulting.R;
 import com.over.parkulting.tools.PermissionTool;
@@ -167,14 +171,14 @@ public class RecognizeFragment extends Fragment implements PermissionTool.Permis
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            if (bitmap.getHeight()<bitmap.getWidth()){
+            if (bitmap.getHeight()>bitmap.getWidth()){
                 bitmap = RotateBitmap(bitmap, 90);
             }
-            Iris.classifyImage(bitmap, getContext());
             try {
                 String imgName = Iris.classifyImage(bitmap, getContext());
                 SavePicture(bitmap,"Park", imgName);
-                Toast.makeText(mContext, "Save file: ", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, imgName, Toast.LENGTH_LONG).show();
+                SetChek(imgName);
             }
             catch (Exception e) {
                 Toast.makeText(mContext, "Error: can't save file", Toast.LENGTH_LONG).show();
@@ -182,6 +186,18 @@ public class RecognizeFragment extends Fragment implements PermissionTool.Permis
             mCamera.startPreview(); //3
         }
     };
+
+    public void SetChek(String name){
+        SQLiteDatabase db = DBHelper.connectDB(getContext());
+        Cursor cursor = db.rawQuery("SELECT * FROM points_in_park WHERE point = \""+ name+"\"", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(0);
+            String strSQL = "UPDATE user_points SET is_take=1  WHERE point_id = "+ id;
+            db.execSQL(strSQL);
+            cursor.moveToNext();
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

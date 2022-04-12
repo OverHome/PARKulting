@@ -5,9 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.over.parkulting.object.Park;
 import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
 import com.over.parkulting.adapter.PointAdapter;
@@ -31,14 +33,26 @@ public class PointActivity extends AppCompatActivity {
         db = DBHelper.connectDB(this);
         Intent i = getIntent();
         if (i != null) {
-            roudeId = i.getIntExtra("position", 0);
+            roudeId = i.getIntExtra("position", 0)+1;
         }
 
         RecyclerView pointlist = findViewById(R.id.point_list);
         List<GeoPoint> pointsl = new ArrayList<>();
 
-        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99, true));
-        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99, false));
+        Cursor cursor = db.rawQuery("SELECT * FROM points_in_park WHERE park_id = "+ roudeId, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(2);
+            Cursor cursor1 = db.rawQuery("SELECT * FROM location_points WHERE point_id = "+ cursor.getInt(0), null);
+            cursor1.moveToFirst();
+            double h = cursor1.getDouble(2);
+            double d = cursor1.getDouble(1);
+            cursor1 = db.rawQuery("SELECT * FROM user_points WHERE point_id = "+ cursor.getInt(0), null);
+            cursor1.moveToFirst();
+            boolean posit = 1 == cursor1.getInt(1);
+            pointsl.add(new GeoPoint(name, h, d, posit));
+            cursor.moveToNext();
+        }
 
         PointAdapter adapter = new PointAdapter(this, pointsl);
         pointlist.setLayoutManager(new LinearLayoutManager(this));
