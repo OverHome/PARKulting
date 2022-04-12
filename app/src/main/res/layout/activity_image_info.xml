@@ -31,14 +31,15 @@
                     android:layout_height="272dp"
                     android:backgroundTint="#FFFFFFFF"
                     android:scaleType="centerCrop"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|left"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="#FFFFFF"
                     android:textSize="34sp" />
@@ -51,7 +52,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
-                android:text="TextView" />
+                android:text="@string/img_info" />
 
         </LinearLayout>
     </ScrollView>
@@ -63,8 +64,10 @@
         android:layout_marginTop="225dp"
         android:layout_marginEnd="32dp"
         android:clickable="true"
+        android:contentDescription="@string/btn_visit_site"
         android:src="@drawable/ic_baseline_language_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.over.parkulting.R;
 import com.over.parkulting.object.Park;
 
@@ -26,6 +28,10 @@ public class ParkAdapter extends ArrayAdapter<Park> {
         }
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tv_park_title);
+
+        ImageView img_park = convertView.findViewById(R.id.imgPark);
+
+        Glide.with(getContext()).load("data:image/jpeg;base64,"+park.getBase64IMG()).into(img_park);
         tvName.setText(park.getName());
 
         return convertView;
