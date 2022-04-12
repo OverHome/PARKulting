@@ -9,11 +9,11 @@ import retrofit2.http.GET;
 
 public class ApiTool {
     private static ApiTool instance;
-    private static final String BASE_URL = "http://192.168.1.230";
+    private static final String BASE_URL = "http://193.178.172.217";
     private Retrofit mRetrofit;
 
     public interface PlaceHolderApi {
-        @GET("/version.json")
+        @GET("/park/version.json")
         Call<VersionPojo> getVersion();
     }
 
