@@ -4,11 +4,13 @@ public class GeoPoint {
     private String name;
     private double h;
     private double d;
+    private boolean posit;
 
-    public GeoPoint(String name, double h, double d) {
+    public GeoPoint(String name, double h, double d, boolean posit) {
         this.name = name;
         this.h = h;
         this.d = d;
+        this.posit = posit;
     }
 
     public String getName() {
@@ -22,4 +24,6 @@ public class GeoPoint {
     public double getD() {
         return d;
     }
+
+    public boolean isPosit() { return posit; }
 }

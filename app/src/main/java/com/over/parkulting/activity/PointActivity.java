@@ -1,11 +1,12 @@
 package com.over.parkulting.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
@@ -33,13 +34,14 @@ public class PointActivity extends AppCompatActivity {
             roudeId = i.getIntExtra("position", 0);
         }
 
-        ListView pointlist = findViewById(R.id.point_list);
+        RecyclerView pointlist = findViewById(R.id.point_list);
         List<GeoPoint> pointsl = new ArrayList<>();
 
-        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99));
-        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99));
+        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99, true));
+        pointsl.add(new GeoPoint("ytxnj", 12.99, 12.99, false));
 
         PointAdapter adapter = new PointAdapter(this, pointsl);
+        pointlist.setLayoutManager(new LinearLayoutManager(this));
         pointlist.setAdapter(adapter);
     }
 }
