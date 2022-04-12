@@ -74,7 +74,7 @@ public class App extends Application {
         boolean isFirstStart = getPrefs.getBoolean(SHPH_FS, true);
         if (isFirstStart) {
             Intent i = new Intent(this, Intro.class);
-
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
 
             SharedPreferences.Editor e = getPrefs.edit();
