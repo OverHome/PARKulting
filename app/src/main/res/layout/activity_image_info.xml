@@ -31,14 +31,15 @@
                     android:layout_height="272dp"
                     android:backgroundTint="#FFFFFFFF"
                     android:scaleType="centerCrop"
-                    tools:src="@tools:sample/backgrounds/scenic" />
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:contentDescription="@string/todo" />
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|left"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="#FFFFFF"
                     android:textSize="34sp" />

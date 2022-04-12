@@ -29,5 +29,6 @@
     <string name="fail_chack_vers">Не удалось проверить версию баз</string>
     <string name="btn_visit_site">Посетить сайт</string>
     <string name="img_info">не найдено ни какой информации</string>
+    <string name="todo">TODO</string>
 
 </resources>
