@@ -118,6 +118,10 @@ public class RecognizeFragment extends Fragment implements PermissionTool.Permis
             int rotate = (degrees + 270) % 360;
             parameters.setRotation(rotate);
             mCamera.setParameters(parameters);
+            Camera.Parameters params = mCamera.getParameters();
+            params.setFocusMode("continuous-picture");
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+            mCamera.setParameters(params);
         }
 
         @Override
@@ -168,7 +172,8 @@ public class RecognizeFragment extends Fragment implements PermissionTool.Permis
             }
             Iris.classifyImage(bitmap, getContext());
             try {
-                SavePicture(bitmap,"Park", "img");
+                String imgName = Iris.classifyImage(bitmap, getContext());
+                SavePicture(bitmap,"Park", imgName);
                 Toast.makeText(mContext, "Save file: ", Toast.LENGTH_LONG).show();
             }
             catch (Exception e) {
