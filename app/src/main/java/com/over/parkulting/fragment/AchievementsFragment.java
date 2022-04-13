@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ public class AchievementsFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_achievement, container, false);
         rv_achiev = root.findViewById(R.id.rv_achiev);
+        ConstraintLayout no_ach_info = root.findViewById(R.id.no_ach_info);
         List<GeoPoint> pointsl = new ArrayList<>();
         db = DBHelper.connectDB(getContext());
 
@@ -51,11 +53,12 @@ public class AchievementsFragment extends Fragment {
             }
             cursor.moveToNext();
         }
-
-        PointAdapter adapter = new PointAdapter(getContext(), pointsl);
-        rv_achiev.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv_achiev.setAdapter(adapter);
-
+        if (pointsl.size()==0) no_ach_info.setVisibility(View.VISIBLE);
+        else {
+            PointAdapter adapter = new PointAdapter(getContext(), pointsl);
+            rv_achiev.setLayoutManager(new LinearLayoutManager(getContext()));
+            rv_achiev.setAdapter(adapter);
+        }
         return root;
     }
 
