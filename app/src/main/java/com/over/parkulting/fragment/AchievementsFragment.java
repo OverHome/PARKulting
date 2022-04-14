@@ -53,6 +53,7 @@ public class AchievementsFragment extends Fragment {
             }
             cursor.moveToNext();
         }
+
         if (pointsl.size()==0) no_ach_info.setVisibility(View.VISIBLE);
         else {
             PointAdapter adapter = new PointAdapter(getContext(), pointsl);

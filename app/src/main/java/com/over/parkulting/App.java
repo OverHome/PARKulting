@@ -1,8 +1,12 @@
 package com.over.parkulting;
 
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,9 +14,19 @@ import android.widget.Toast;
 import com.over.parkulting.activity.Intro;
 import com.over.parkulting.pojo.VersionPojo;
 import com.over.parkulting.tools.ApiTool;
+import com.over.parkulting.tools.DBHelper;
+import com.over.parkulting.tools.Iris;
+import com.over.parkulting.tools.UpdateTool;
+import com.over.parkulting.tools.VersionTool;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,29 +34,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
-
-    private final String SHPH_FS = "FIRST_START";
-    private final String SHPH_VERS = "VERSION";
-
-    private int comparisonVersion(String ver1, String ver2){
-        Scanner s1 = new Scanner(ver1);
-        Scanner s2 = new Scanner(ver2);
-        s1.useDelimiter("\\.");
-        s2.useDelimiter("\\.");
-
-        while(s1.hasNextInt() && s2.hasNextInt()) {
-            int v1 = s1.nextInt();
-            int v2 = s2.nextInt();
-            if(v1 < v2) {
-                return -1;
-            } else if(v1 > v2) {
-                return 1;
-            }
-        }
-
-        if(s1.hasNextInt()) return 1;
-        return 0;
-    }
 
     @Override
     public void onCreate() {
@@ -55,12 +46,49 @@ public class App extends Application {
             @Override
             public void onResponse(Call<VersionPojo> call, Response<VersionPojo> response) {
                 VersionPojo res = response.body();
-                int compVer = comparisonVersion(getPrefs.getString(SHPH_VERS, "0"),
+                int compVer = VersionTool.comparisonVersion(
+                        getPrefs.getString(getString(R.string.SHPREF_VER), "0"),
                         res.getVersion());
 
                 if (compVer<0) {
+                    ApiTool.getInstance().getApi().downloadParKultingFile().enqueue(new Callback<ResponseBody>() {
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                            try {
+                                File file = new File(DBHelper.getDatabasePath(getApplicationContext()), DBHelper.DATABASE_NAME);
+                                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                                fileOutputStream.write(response.body().bytes());
+
+                                ApiTool.getInstance().getApi().downloadModelFile().enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        try {
+                                            File file2 = new File(Iris.getModelPath(getApplicationContext()), Iris.MODEL_NAME);
+                                            FileOutputStream fileOutputStreamModel = new FileOutputStream(file2);
+                                            fileOutputStreamModel.write(response.body().bytes());
+                                            UpdateTool.allUpdate(getApplicationContext(), res.getVersion());
+                                        } catch (IOException e) {}
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                            catch (Exception ex){
+                                Log.i("TAG", "onResponse: error");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                        }
+                    });
                     Toast.makeText(getApplicationContext(), "there are updates", Toast.LENGTH_LONG).show();
-                } else if ( compVer==0 || compVer>0 ) {
+                } else if (compVer>=0 ) {
                     Toast.makeText(getApplicationContext(), "no updates", Toast.LENGTH_LONG).show();
                 }
             }
@@ -71,14 +99,15 @@ public class App extends Application {
             }
         });
 
-        boolean isFirstStart = getPrefs.getBoolean(SHPH_FS, true);
+
+        boolean isFirstStart = getPrefs.getBoolean(getString(R.string.SHPREF_FSTART), true);
         if (isFirstStart) {
             Intent i = new Intent(this, Intro.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
 
             SharedPreferences.Editor e = getPrefs.edit();
-            e.putBoolean(SHPH_FS, false);
+            e.putBoolean(getString(R.string.SHPREF_FSTART), false);
             e.apply();
         }
     }

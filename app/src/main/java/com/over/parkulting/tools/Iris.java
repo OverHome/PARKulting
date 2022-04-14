@@ -5,25 +5,87 @@ import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
+import android.util.Log;
+
+import androidx.annotation.Nullable;
 
 import org.tensorflow.lite.Interpreter;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-
 
 public class Iris {
     private static int imageSize = 200;
+    public static final String MODEL_NAME = "model.tflite";
+
+    public static String getModelPath(@Nullable Context context){
+        if (android.os.Build.VERSION.SDK_INT >= 17)
+            return context.getApplicationInfo().dataDir + "/";
+        else
+            return  "/data/data/" + context.getPackageName() + "/";
+    }
+
+    private static boolean checkModel(Context mContext) {
+        File dbFile = new File(getModelPath(mContext) + MODEL_NAME);
+        return dbFile.exists();
+    }
+
+    private static void copyDBFile(Context mContext) throws IOException {
+        InputStream mInput = mContext.getAssets().open(MODEL_NAME);
+        File dd = new File(getModelPath(mContext) + MODEL_NAME);
+        dd.createNewFile();
+        OutputStream mOutput = new FileOutputStream(dd);
+        byte[] mBuffer = new byte[1024];
+        int mLength;
+        while ((mLength = mInput.read(mBuffer)) > 0)
+            mOutput.write(mBuffer, 0, mLength);
+        mOutput.flush();
+        mOutput.close();
+        mInput.close();
+    }
+
+    private static void copyDataBase(Context context){
+        if (!checkModel(context)) {
+            try {
+                copyDBFile(context);
+            } catch (IOException mIOException) {
+
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+                mIOException.printStackTrace(pw);
+                String sStackTrace = sw.toString(); // stack trace as a string
+
+
+                Log.i("TAG", "copyDataBase:" +sStackTrace);
+            }
+        }
+    }
 
     public static String classifyImage(Bitmap img, Context context) {
         int des = Math.min(img.getWidth(), img.getHeight());
         img = ThumbnailUtils.extractThumbnail(img, des , des);
         img = Bitmap.createScaledBitmap(img, imageSize, imageSize, false);
         try {
-            ByteBuffer modelf = loadModelFile(context.getAssets(), "model.tflite");
+
+            copyDataBase(context);
+            ByteBuffer modelf = loadModelFile(MODEL_NAME, getModelPath(context));
+
+
+
+
+
+
+
             Interpreter interpreter = new Interpreter(modelf);
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
             byteBuffer.order(ByteOrder.nativeOrder());
@@ -59,13 +121,13 @@ public class Iris {
             return "Не распознано";
         }
     }
-    private static ByteBuffer loadModelFile(AssetManager assetManager, String modelPath) throws IOException {
-        AssetFileDescriptor fileDescriptor = assetManager.openFd(modelPath);
-        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+    private static ByteBuffer loadModelFile(String modelPath, String mPath) throws IOException {
+
+        File fpm = new File(mPath, modelPath);
+        FileInputStream inputStream = new FileInputStream(fpm);
         FileChannel fileChannel = inputStream.getChannel();
-        long startOffset = fileDescriptor.getStartOffset();
-        long declaredLength = fileDescriptor.getDeclaredLength();
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+        MappedByteBuffer bb = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
+        return bb;
     }
 
 }
