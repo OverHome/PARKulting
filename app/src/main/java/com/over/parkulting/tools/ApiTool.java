@@ -22,6 +22,8 @@ public class ApiTool {
 
         @GET("/get/ParKulting.db")
         Call<ResponseBody> downloadParKultingFile();
+
+
     }
 
     private ApiTool(){

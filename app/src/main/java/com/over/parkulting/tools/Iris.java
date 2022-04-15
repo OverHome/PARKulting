@@ -137,7 +137,6 @@ public class Iris {
         }
     }
     private static ByteBuffer loadModelFile(String modelPath, String mPath) throws IOException {
-
         File fpm = new File(mPath, modelPath);
         FileInputStream inputStream = new FileInputStream(fpm);
         FileChannel fileChannel = inputStream.getChannel();
