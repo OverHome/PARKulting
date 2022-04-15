@@ -35,5 +35,10 @@
     <string name="SHPREF_FSTART">FIRST_START</string>
     <string name="SHPREF_VER">VERSION</string>
     <string name="SHPREF_UPDATE_VER">UPDATE_VERSION</string>
+    <string name="send">Отправить</string>
+    <string name="url">url</string>
+    <string name="info">Info</string>
+    <string name="park">Парк:</string>
+    <string name="point">Достопремечательность:</string>
 
 </resources>

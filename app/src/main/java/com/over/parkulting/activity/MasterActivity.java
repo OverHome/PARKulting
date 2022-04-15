@@ -54,11 +54,6 @@ public class MasterActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_master);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-        // TODO: доделать диалог загрузки
-        /*Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_download);
-        dialog.show();*/
     }
 
     @Override
