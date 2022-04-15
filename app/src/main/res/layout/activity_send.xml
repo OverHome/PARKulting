@@ -35,11 +35,11 @@
             android:id="@+id/editTextTextPersonName3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=""
             android:ems="10"
             android:inputType="textPersonName"
-            android:visibility="gone"
-            tools:visibility="gone"
-            android:autofillHints="" />
+            android:visibility="visible"
+            tools:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout
@@ -110,7 +110,7 @@
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttontyut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"

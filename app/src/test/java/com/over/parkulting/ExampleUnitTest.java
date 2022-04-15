@@ -32,6 +32,11 @@ public class ExampleUnitTest {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
             }
-        }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
     }
 }
