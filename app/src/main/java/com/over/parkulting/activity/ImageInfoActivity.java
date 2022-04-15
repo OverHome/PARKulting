@@ -8,13 +8,24 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.over.parkulting.tools.ApiTool;
 import com.over.parkulting.tools.DBHelper;
 import com.over.parkulting.R;
+
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ImageInfoActivity extends AppCompatActivity {
 
@@ -69,5 +80,33 @@ public class ImageInfoActivity extends AppCompatActivity {
         }catch (Exception e){
 
         }
+        st();
+    }
+    public void st(){
+        File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File file = new File(pictures+"/1.jpg");
+        RequestBody fbody = RequestBody.create(MediaType.parse("image/pp.jpg"), file);
+        RequestBody point = RequestBody.create(MediaType.parse("text/plain"), "sdfsdf");
+        RequestBody info = RequestBody.create(MediaType.parse("text/plain"), "dfsdfs");
+        RequestBody park = RequestBody.create(MediaType.parse("text/plain"), "sdfsdf");
+        RequestBody url = RequestBody.create(MediaType.parse("text/plain"), "dfsdfs");
+        RequestBody ll = RequestBody.create(MediaType.parse("text/plain"), "sdfsdf");
+        RequestBody lw = RequestBody.create(MediaType.parse("text/plain"), "dfsdfs");
+
+        Call<ResponseBody> call = ApiTool.getInstance().getApi().sendInfo(fbody, point,info,park,url,ll,lw);
+
+        call.enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+
+        });
     }
 }
