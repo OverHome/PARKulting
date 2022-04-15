@@ -22,19 +22,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "ParKulting.db";
     private static String DATABASE_PATH = "";
 
+    public static String getDatabasePath(@Nullable Context context){
+        if (android.os.Build.VERSION.SDK_INT >= 17)
+            return context.getApplicationInfo().dataDir + "/databases/";
+        else
+            return  "/data/data/" + context.getPackageName() + "/databases/";
+    }
 
     public DBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        if (android.os.Build.VERSION.SDK_INT >= 17)
-            DATABASE_PATH = context.getApplicationInfo().dataDir + "/databases/";
-        else
-            DATABASE_PATH = "/data/data/" + context.getPackageName() + "/databases/";
+        DATABASE_PATH = getDatabasePath(context);
         this.mContext = context;
 
         copyDataBase();
 
         this.getReadableDatabase();
     }
+
+
 
     private void copyDataBase() {
         if (!checkDataBase()) {

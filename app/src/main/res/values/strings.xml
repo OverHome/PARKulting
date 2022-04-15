@@ -30,5 +30,10 @@
     <string name="btn_visit_site">Посетить сайт</string>
     <string name="img_info">не найдено ни какой информации</string>
     <string name="todo">TODO</string>
+    <string name="no_atch">нет достижений открой главную и выбере куда ты хочешь сходить</string>
+
+    <string name="SHPREF_FSTART">FIRST_START</string>
+    <string name="SHPREF_VER">VERSION</string>
+    <string name="SHPREF_UPDATE_VER">UPDATE_VERSION</string>
 
 </resources>
