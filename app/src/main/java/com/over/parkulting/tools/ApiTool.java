@@ -2,17 +2,21 @@ package com.over.parkulting.tools;
 
 import com.over.parkulting.pojo.VersionPojo;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public class ApiTool {
     private static ApiTool instance;
-    private static final String BASE_URL = "http://192.168.8.100:5000";
+    private static final String BASE_URL = "https://31b5-46-188-125-150.eu.ngrok.io";
     private Retrofit mRetrofit;
 
     public interface PlaceHolderApi {
@@ -25,8 +29,15 @@ public class ApiTool {
         @GET("/get/ParKulting.db")
         Call<ResponseBody> downloadParKultingFile();
 
+        @Multipart
         @POST("/")
-        Call<ResponseBody> sendInfo();
+        Call<ResponseBody> sendInfo(@Part("file\"; filename=\"pp.png\" ") RequestBody file,
+                                    @Part("point") RequestBody point,
+                                    @Part("info") RequestBody info,
+                                    @Part("park") RequestBody park,
+                                    @Part("url") RequestBody url,
+                                    @Part("location_longitude") RequestBody ll,
+                                    @Part("location_width") RequestBody lw);
     }
 
     private ApiTool(){
@@ -47,14 +58,6 @@ public class ApiTool {
         return mRetrofit.create(PlaceHolderApi.class);
     }
 
-    public class RegistrationBody{
-        public String login;
-        public String password;
-    }
-
-    public class RegistrationResponse {
-        public String token;
-    }
 }
 
 

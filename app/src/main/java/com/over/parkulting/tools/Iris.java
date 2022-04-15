@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Iris {
-    private static int imageSize = 200;
+    private static int imageSize = 250;
     public static final String MODEL_NAME = "model.tflite";
 
     public static String getModelPath(@Nullable Context context){
@@ -83,13 +83,6 @@ public class Iris {
 
             copyDataBase(context);
             ByteBuffer modelf = loadModelFile(MODEL_NAME, getModelPath(context));
-
-
-
-
-
-
-
             Interpreter interpreter = new Interpreter(modelf);
             ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
             byteBuffer.order(ByteOrder.nativeOrder());
