@@ -7,6 +7,10 @@ import static org.junit.Assert.*;
 import com.over.parkulting.pojo.VersionPojo;
 import com.over.parkulting.tools.ApiTool;
 
+import java.io.File;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,18 +24,5 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
 
-    @Test
-    public void st(){
-        ApiTool.getInstance().getApi().sendInfo().enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-            }
-        }
-    }
 }
