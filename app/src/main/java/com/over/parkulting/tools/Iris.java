@@ -3,6 +3,8 @@ package com.over.parkulting.tools;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 
@@ -13,10 +15,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Iris {
-    private static int imageSize = 200;
+    private static int imageSize = 250;
 
     public static String classifyImage(Bitmap img, Context context) {
         int des = Math.min(img.getWidth(), img.getHeight());
@@ -38,7 +42,18 @@ public class Iris {
                     byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
                 }
             }
-            String[] classes = {"Аллея арок", "Арт-объект Позвони родителям", "Букводом", "Главный фонтан", "Памятник Мойдодыру", "Сад астрономов", "Уличное пианино", "Храм Святого Тихона Задонского"};
+            SQLiteDatabase db = DBHelper.connectDB(context);
+            List<String> classest = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM points_in_park WHERE iris_id > 0 ORDER BY iris_id", null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                int ir_id = cursor.getInt(5);
+                if (ir_id>0){
+                    classest.add(cursor.getString(2));
+                }
+                cursor.moveToNext();
+            }
+            String[] classes = classest.toArray(new String[0]);
             float[][] result = new float[1][classes.length];
             interpreter.run(byteBuffer, result);
             int index = -1;
