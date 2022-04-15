@@ -6,7 +6,9 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 
 public class ApiTool {
     private static ApiTool instance;
@@ -23,7 +25,8 @@ public class ApiTool {
         @GET("/get/ParKulting.db")
         Call<ResponseBody> downloadParKultingFile();
 
-
+        @POST("/")
+        Call<ResponseBody> sendInfo();
     }
 
     private ApiTool(){
@@ -43,4 +46,15 @@ public class ApiTool {
     public PlaceHolderApi getApi() {
         return mRetrofit.create(PlaceHolderApi.class);
     }
+
+    public class RegistrationBody{
+        public String login;
+        public String password;
+    }
+
+    public class RegistrationResponse {
+        public String token;
+    }
 }
+
+
