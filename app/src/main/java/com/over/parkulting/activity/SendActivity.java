@@ -44,12 +44,12 @@ public class SendActivity extends AppCompatActivity {
                 .simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 SQLiteDatabase db = DBHelper.connectDB(getApplicationContext());
                 List<String> point = new ArrayList<>();
-                Cursor cursor = db.rawQuery("SELECT * FROM points_in_park", null);
+                Cursor cursor = db.rawQuery("SELECT * FROM points_in_park WHERE park_id = "+i+1, null);
                 cursor.moveToFirst();
                 while (!cursor.isAfterLast()) {
                     point.add(cursor.getString(2));
@@ -62,27 +62,17 @@ public class SendActivity extends AppCompatActivity {
                         .simple_spinner_dropdown_item);
                 spinner2.setAdapter(spinnerArrayAdapter2);
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
-
-
-        List<String> point = new ArrayList<>();
-        cursor = db.rawQuery("SELECT * FROM points_in_park", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            point.add(cursor.getString(2));
-            cursor.moveToNext();
-        }
-        Spinner spinner2 = findViewById(R.id.spinner2);
-        ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<>
-                (this, android.R.layout.simple_spinner_item, point);
-        spinnerArrayAdapter.setDropDownViewResource(android.R.layout
-                .simple_spinner_dropdown_item);
-        spinner2.setAdapter(spinnerArrayAdapter2);
 
         gyu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                finish();
             }
         });
     }
