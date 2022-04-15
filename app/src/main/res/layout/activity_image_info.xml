@@ -71,4 +71,14 @@
         app:layout_constraintTop_toTopOf="@+id/scrollView2"
         android:focusable="true" />
 
+    <Button
+        android:id="@+id/btn_publish"
+        android:layout_width="241dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/pulish"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

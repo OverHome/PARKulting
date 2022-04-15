@@ -73,7 +73,7 @@ public class SendActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
         Spinner spinner2 = findViewById(R.id.spinner2);
-        ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>
+        ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<>
                 (this, android.R.layout.simple_spinner_item, point);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout
                 .simple_spinner_dropdown_item);

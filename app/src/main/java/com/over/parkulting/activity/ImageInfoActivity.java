@@ -81,6 +81,12 @@ public class ImageInfoActivity extends AppCompatActivity {
 
         }
         st();
+        findViewById(R.id.btn_publish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), SendActivity.class));
+            }
+        });
     }
     public void st(){
         File pictures = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
